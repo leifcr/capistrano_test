@@ -9,14 +9,14 @@
 $script = <<SCRIPT
 echo Provisioning stuff
 date > /etc/vagrant_provisioned_at
-apt-get install gpgv2
+apt-get install gpgv2 git runit monit
 rm -rf ~/.gnupg/
 curl -#LO https://rvm.io/mpapis.asc
 gpg --import mpapis.asc
 \\curl -sSL https://get.rvm.io | sudo bash -s stable
 usermod -G rvm root
-usermod -G rvm vagrant
-useradd -d /home/deploy -G rvm -p deploy -m deploy
+usermod -G rvm, sudo deploy
+useradd -d /home/deploy -G rvm -p deploy -s /bin/bash -m deploy
 /usr/local/rvm/bin/rvm install 2.2.1
 SCRIPT
 
@@ -44,6 +44,8 @@ Vagrant.configure(2) do |config|
   config.vm.network "private_network", ip: "10.30.20.20"
 
   config.vm.provision "shell", inline: $script
+  # config.ssh.username 'deploy'
+  # config.ssh.password 'deploy'
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
@@ -88,5 +90,7 @@ Vagrant.configure(2) do |config|
   #
   config.vm.provider "virtualbox" do |v|
     v.name = "capistrano_test"
+    v.cpus = 4 # Speed up ruby compilation
+    v.memory = 2048 # Speed up ruby compilation
   end
 end

@@ -29,7 +29,7 @@ gem 'puma'
 
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development
-
+gem 'capistrano-rvm'
 gem 'capistrano-monit_runit', path: File.expand_path('../../capistrano-monit_runit', __FILE__)
 
 group :development, :test do

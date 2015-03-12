@@ -9,12 +9,15 @@
 $script = <<SCRIPT
 echo Provisioning stuff
 date > /etc/vagrant_provisioned_at
-apt-get install gpg2
+apt-get install gpgv2
 rm -rf ~/.gnupg/
 curl -#LO https://rvm.io/mpapis.asc
 gpg --import mpapis.asc
 \\curl -sSL https://get.rvm.io | sudo bash -s stable
-rvm install 2.2.1
+usermod -G rvm root
+usermod -G rvm vagrant
+useradd -d /home/deploy -G rvm -p deploy -m deploy
+/usr/local/rvm/bin/rvm install 2.2.1
 SCRIPT
 
 Vagrant.configure(2) do |config|

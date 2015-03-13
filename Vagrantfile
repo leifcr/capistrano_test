@@ -9,15 +9,16 @@
 $script = <<SCRIPT
 echo Provisioning stuff
 date > /etc/vagrant_provisioned_at
-apt-get install gpgv2 git runit monit
+apt-get -y install gpgv2 git runit monit g++ libreadline6-dev zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config libffi-dev
 rm -rf ~/.gnupg/
 curl -#LO https://rvm.io/mpapis.asc
 gpg --import mpapis.asc
 \\curl -sSL https://get.rvm.io | sudo bash -s stable
 usermod -G rvm root
-usermod -G rvm, sudo deploy
-useradd -d /home/deploy -G rvm -p deploy -s /bin/bash -m deploy
+useradd -d /home/deploy -G rvm,sudo -p deploy -s /bin/bash -m deploy
 /usr/local/rvm/bin/rvm install 2.2.1
+mkdir /var/www
+chown deploy:www-data /var/www
 SCRIPT
 
 Vagrant.configure(2) do |config|

@@ -4,7 +4,7 @@ lock '3.4.0'
 set :application, 'capistrano_test'
 set :user, 'deploy'
 set :repo_url, 'git@github.com:leifcr/capistrano_test.git'
-
+set :stage, 'production'
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

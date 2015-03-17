@@ -29,10 +29,10 @@ gem 'puma'
 
 # Use Capistrano for deployment
 gem 'capistrano-rails', group: :development
-gem 'capistrano-rvm'
+# gem 'capistrano-rvm'
 # gem 'capistrano-monit_runit', path: File.expand_path('../../capistrano-monit_runit', __FILE__)
 gem 'capistrano-monit_runit', path: '../capistrano-monit_runit'
-
+gem 'capistrano-pumaio', path: '../capistrano-puma'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'

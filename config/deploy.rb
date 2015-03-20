@@ -5,6 +5,9 @@ set :application, 'capistrano_test'
 set :user, 'deploy'
 set :repo_url, 'git@github.com:leifcr/capistrano_test.git'
 set :stage, 'production'
+
+set :rvm_ruby_version, '2.2.1@devel'
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

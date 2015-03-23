@@ -8,6 +8,8 @@ set :stage, 'production'
 
 set :rvm_ruby_version, '2.2.1@devel'
 
+set :server_name, 'localhost'
+
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

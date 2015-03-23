@@ -28,8 +28,17 @@ set :server_name, 'localhost'
 # Default value for :pty is false
 set :pty, true # Must be enabled for sudo'ing
 
+before :deploy, :check, :linked_files do
+  on roles(:app) do
+    execute :mkdir, "-p #{shared_path.join('pids')}" if test ("[ ! -d #{shared_path.join('db')} ]") # rubocop:disable Metrics/LineLength
+    if test ("[ ! -f #{shared_path.join('db', 'production.sqlite3')} ]")
+      execute :touch, shared_path.join('db', 'production.sqlite3')
+    end
+  end
+end
+
 # Default value for :linked_files is []
-# set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'config/secrets.yml')
+set :linked_files, fetch(:linked_files, []).push('db/production.sqlite3')
 
 # Default value for linked_dirs is []
 # set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
@@ -42,7 +51,6 @@ set :linked_dirs, fetch(:linked_dirs, []).push('log', 'vendor/bundle')
 # set :keep_releases, 5
 
 namespace :deploy do
-
   after :restart, :clear_cache do
     on roles(:web), in: :groups, limit: 3, wait: 10 do
       # Here we can do anything such as:
@@ -51,5 +59,11 @@ namespace :deploy do
       # end
     end
   end
-
 end
+
+before 'deploy:updating', 'monit:unmonitor'
+
+before 'deploy:publishing', 'puma:runit:stop'
+after 'deploy:published', 'puma:runit:start'
+
+after 'deploy:finished', 'monit:monitor'

@@ -12,6 +12,13 @@ class PostsController < ApplicationController
   def show
   end
 
+  def super_post
+    SuperPostJob.perform_later
+    respond_to do |format|
+      format.html { redirect_to posts_url, notice: 'Super Post was queued. Reload to check page later.' }
+    end
+  end
+
   # GET /posts/new
   def new
     @post = Post.new

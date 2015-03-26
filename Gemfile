@@ -22,6 +22,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'puma'
 
+gem 'delayed_job'
+gem 'delayed_job_active_record'
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug'
@@ -36,11 +39,9 @@ end
 
 group :development do
   # Use Capistrano for deployment
-  gem 'capistrano-rails'
-  gem 'capistrano-rvm'
-  # gem 'capistrano-monit_runit', path: File.expand_path('../../capistrano-monit_runit', __FILE__)
-  # gem 'capistrano-monit_runit', git: 'git@github.com:leifcr/capistrano-monit_runit.git', branch: 'capistrano3'
-  # gem 'capistrano-pumaio', git: 'git@github.com:leifcr/capistrano-puma.git'
-  gem 'capistrano-monit_runit', path: '../capistrano-monit_runit'
-  gem 'capistrano-pumaio', path: '../capistrano-puma'
+  gem 'capistrano-rails', require: false
+  gem 'capistrano-rvm', require: false
+  gem 'capistrano-monit_runit', path: '../capistrano-monit_runit', require: false
+  gem 'capistrano-pumaio', path: '../capistrano-puma', require: false
+  gem 'capistrano-delayed_job', path: '../capistrano-delayed_job', require: false
 end

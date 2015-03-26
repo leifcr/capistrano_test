@@ -62,8 +62,10 @@ namespace :deploy do
 end
 
 before 'deploy:updating', 'monit:unmonitor'
+before 'deploy:updating', 'delayed_job:runit:stop'
 
 before 'deploy:publishing', 'puma:runit:stop'
 after 'deploy:published', 'puma:runit:start'
+after 'deploy:published', 'delayed_job:runit:start'
 
 after 'deploy:finished', 'monit:monitor'

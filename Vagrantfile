@@ -15,7 +15,7 @@ curl -#LO https://rvm.io/mpapis.asc
 gpg --import mpapis.asc
 \\curl -sSL https://get.rvm.io | sudo bash -s stable
 usermod -G rvm root
-useradd -d /home/deploy -G rvm,sudo -p deploy -s /bin/bash -m deploy
+useradd -d /home/deploy -G rvm,sudo -p $(openssl passwd -1 deploy) -s /bin/bash -m deploy
 /usr/local/rvm/bin/rvm install 2.2.1
 mkdir /var/www
 chown deploy:www-data /var/www

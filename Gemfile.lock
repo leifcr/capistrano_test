@@ -16,10 +16,10 @@ PATH
 PATH
   remote: ../capistrano-puma
   specs:
-    capistrano-pumaio (3.0.0)
+    capistrano-pumaio (3.0.1)
       activesupport (>= 3.0)
       capistrano (~> 3.4)
-      capistrano-monit_runit
+      capistrano-monit_runit (~> 3.0.1)
 
 GEM
   remote: https://rubygems.org/

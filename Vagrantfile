@@ -9,7 +9,7 @@
 $script = <<SCRIPT
 echo Provisioning stuff
 date > /etc/vagrant_provisioned_at
-apt-get -y install gpgv2 git runit monit g++ libreadline6-dev zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config libffi-dev
+apt-get -y install gpgv2 git runit monit g++ libreadline6-dev zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config libffi-dev nginx
 rm -rf ~/.gnupg/
 curl -#LO https://rvm.io/mpapis.asc
 gpg --import mpapis.asc

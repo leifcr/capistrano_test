@@ -31,6 +31,9 @@ set :pty, true # Must be enabled for sudo'ing
 before :deploy, :check, :linked_files do
   on roles(:app) do
     execute :mkdir, "-p #{shared_path.join('pids')}" if test ("[ ! -d #{shared_path.join('db')} ]") # rubocop:disable Metrics/LineLength
+    if test "[ ! -d #{shared_path.join('db')} ]"
+      execute :mkdir, "-p #{shared_path.join('db')}"
+    end
     if test ("[ ! -f #{shared_path.join('db', 'production.sqlite3')} ]")
       execute :touch, shared_path.join('db', 'production.sqlite3')
     end

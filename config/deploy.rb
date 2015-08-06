@@ -9,7 +9,7 @@ set :stage, 'production'
 set :rvm1_ruby_version, '2.2.1@capistrano'
 # set :bundle_dir, ''
 set :bundle_path, nil
-set :bundle_flags, '--quiet'
+set :bundle_flags, ''
 
 # set :rvm_require_role, :app
 # require "rvm/capistrano/selector_mixed"

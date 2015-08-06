@@ -6,7 +6,13 @@ set :user, 'deploy'
 set :repo_url, 'git@github.com:leifcr/capistrano_test.git'
 set :stage, 'production'
 
-set :rvm_ruby_version, '2.2.1@devel'
+set :rvm1_ruby_version, '2.2.1@devel'
+set :bundle_dir, ''
+set :bundle_flags, '--system --quiet'
+
+# set :rvm_require_role, :app
+# require "rvm/capistrano/selector_mixed"
+# set :rvm_type, :system
 
 set :server_name, 'localhost'
 

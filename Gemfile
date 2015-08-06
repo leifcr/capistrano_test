@@ -40,7 +40,7 @@ end
 group :development do
   # Use Capistrano for deployment
   gem 'capistrano-rails', require: false
-  gem 'rvm-capistrano', require: false
+  gem 'rvm1-capistrano3', require: false
   gem 'capistrano-monit_runit', path: '../capistrano-monit_runit', require: false
   gem 'capistrano-pumaio', path: '../capistrano-puma', require: false
   gem 'capistrano-delayed_job', path: '../capistrano-delayed_job', require: false

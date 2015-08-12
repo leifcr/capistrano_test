@@ -15,8 +15,6 @@ set :bundle_flags, ''
 # require "rvm/capistrano/selector_mixed"
 # set :rvm_type, :system
 
-set :server_name, 'localhost'
-
 # Default branch is :master
 # ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 

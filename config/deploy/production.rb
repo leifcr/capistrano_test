@@ -17,6 +17,8 @@ server '10.30.20.20', user: 'deploy', roles: %w{app db web}
 # role :web, %w{user1@primary.com user2@additional.com}, other_property: :other_value
 # role :db,  %w{deploy@example.com}
 
+# Puma/nginx configuration
+set :server_names, 'localhost'
 
 
 # Configuration

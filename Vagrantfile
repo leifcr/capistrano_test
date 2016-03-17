@@ -20,6 +20,24 @@ useradd -d /home/deploy -G rvm,sudo -p $(openssl passwd -1 deploy) -s /bin/bash 
 /usr/local/rvm/bin/rvm install 2.2.1
 mkdir /var/www
 chown deploy:www-data /var/www
+mkdir -p /var/log/nginx
+chmod 6775 -R /var/log/nginx
+chown -R deploy:root /var/log/nginx
+mkdir -p /etc/monit/conf.d
+chown -R deploy:root /etc/monit/conf.d
+chmod 6775 /etc/monit/conf.d
+chmod 0700 /etc/monit
+mkdir -p /var/run/monit
+chmod 0755 /var/run/monit
+mkdir /etc/service
+chown -R deploy:root /etc/service
+chmod 6755 /etc/service
+mkdir -p /etc/sv/deploy
+chown -R deploy:root /etc/sv
+chmod -R 6755 /etc/sv
+mkdir -p /var/log/service
+chown -R deploy:syslog /var/log/service
+chmod 6755 /var/log/service
 SCRIPT
 
 Vagrant.configure(2) do |config|
@@ -46,6 +64,14 @@ Vagrant.configure(2) do |config|
   config.vm.network 'private_network', ip: '10.30.20.20'
 
   config.vm.provision 'shell', inline: $script
+  config.vm.provision :file do |f|
+    f.source = './vagrant/monit_runit_sudoers_file'
+    f.destionation = '/etc/sudoers.d/monit_runit_app'
+  end
+  config.vm.provision :file do |f|
+    f.source = './vagrant/monitrc'
+    f.destionation = '/etc/monit/monitrc'
+  end
   # config.ssh.username 'deploy'
   # config.ssh.password 'deploy'
 

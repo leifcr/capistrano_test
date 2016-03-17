@@ -1,0 +1,15 @@
+set daemon 60
+  with start delay 45
+
+set logfile syslog facility log_daemon
+
+set eventqueue
+    basedir /var/monit  # set the base directory where events will be stored
+    slots 250           # limit the queue size
+
+set httpd port 2812
+  use address localhost
+  allow localhost
+  signature enable
+
+include /etc/monit/conf.d/*.conf

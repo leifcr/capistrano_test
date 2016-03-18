@@ -1,6 +1,6 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
-
+# rubocop:disable Style/GlobalVars
 # All Vagrant configuration is done below. The '2' in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -9,20 +9,13 @@
 $script = <<SCRIPT
 echo Provisioning stuff
 date > /etc/vagrant_provisioned_at
+apt-add-repositry -y ppa:brightbox/ruby-ng
 apt-get -y update
-apt-get -y install gpgv2 git runit monit g++ libreadline6-dev zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config libffi-dev nginx
+apt-get -y install gpgv2 git runit monit g++ libreadline6-dev zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config libffi-dev ruby2.3
 rm -rf ~/.gnupg/
-curl -#LO https://rvm.io/mpapis.asc
-gpg --import mpapis.asc
-\\curl -sSL https://get.rvm.io | sudo bash -s stable
-usermod -G rvm root
-useradd -d /home/deploy -G rvm,sudo -p $(openssl passwd -1 deploy) -s /bin/bash -m deploy
-/usr/local/rvm/bin/rvm install 2.2.1
+useradd -d /home/deploy -G sudo -p $(openssl passwd -1 deploy) -s /bin/bash -m deploy
 mkdir /var/www
 chown deploy:www-data /var/www
-mkdir -p /var/log/nginx
-chmod 6775 -R /var/log/nginx
-chown -R deploy:root /var/log/nginx
 mkdir -p /etc/monit/conf.d
 chown -R deploy:root /etc/monit/conf.d
 chmod 6775 /etc/monit/conf.d
@@ -38,6 +31,12 @@ chmod -R 6755 /etc/sv
 mkdir -p /var/log/service
 chown -R deploy:syslog /var/log/service
 chmod 6755 /var/log/service
+SCRIPT
+
+$nginx_script_lines = <<SCRIPT
+mkdir -p /var/log/nginx
+chmod 6775 -R /var/log/nginx
+chown -R deploy:root /var/log/nginx
 SCRIPT
 
 Vagrant.configure(2) do |config|

@@ -2,5 +2,7 @@
 
 <%= render 'form' %>
 
-<%= link_to 'Show', @post %> |
-<%= link_to 'Back', posts_path %>
+<br>
+
+<%= link_to '<i class="material-icons left">details</i>Show'.html_safe, @post, class: 'btn green darken-2 waves-effect waves-light' %>
+<%= link_to '<i class="material-icons left">arrow_back</i>Back'.html_safe, posts_path, class: 'btn blue darken-2 waves-effect waves-light'  %>

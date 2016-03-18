@@ -2,7 +2,7 @@
 
 <h1>Listing Posts</h1>
 
-<table>
+<table class="striped">
   <thead>
     <tr>
       <th>Title</th>
@@ -14,9 +14,9 @@
     <% @posts.each do |post| %>
       <tr>
         <td><%= post.title %></td>
-        <td><%= link_to 'Show', post %></td>
-        <td><%= link_to 'Edit', edit_post_path(post) %></td>
-        <td><%= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= link_to '<i class="material-icons left">details</i>Show'.html_safe, post, class: 'btn green darken-2 waves-effect waves-light' %></td>
+        <td><%= link_to '<i class="material-icons left">edit</i>Edit'.html_safe, edit_post_path(post), class: 'btn blue darken-2 waves-effect waves-light' %></td>
+        <td><%= link_to '<i class="material-icons left">delete_forever</i>Destroy'.html_safe, post, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn red darken-2 waves-effect waves-light' %></td>
       </tr>
     <% end %>
   </tbody>
@@ -24,5 +24,5 @@
 
 <br>
 
-<%= link_to 'New Post', new_post_path %>
-<%= link_to 'Delayed Super Post', super_post_posts_path %>
+<%= link_to '<i class="material-icons left">add_circle_outline</i>New Post'.html_safe, new_post_path, class: "btn blue waves-effect waves-light" %>
+<%= link_to '<i class="material-icons left">timelapse</i>Created Delayed Super Post'.html_safe, super_post_posts_path, class: "btn blue waves-effect waves-light" %>

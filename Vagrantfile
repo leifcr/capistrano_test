@@ -50,7 +50,8 @@ echo 'deploy ALL=NOPASSWD: /usr/sbin/service nginx *' >> /etc/sudoers.d/monit_ru
 SCRIPT
 
 $afterfileuploadperms = <<SCRIPT
-chmod 0700 /etc/monit
+chmod 0750 /etc/monit
+chown deploy:root /etc/monit
 SCRIPT
 
 Vagrant.configure(2) do |config|

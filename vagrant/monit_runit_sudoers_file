@@ -12,10 +12,3 @@ deploy ALL=NOPASSWD: /usr/bin/sv *
 # Sudo entries for nginx (monit_runit_rails_app)
 # -----------------------------------------------------------------------------------------
 deploy ALL=NOPASSWD: /usr/sbin/service nginx *
-
-# These are created as a state, instead of through capistrano:
-# deploy ALL=NOPASSWD: /bin/mkdir -p /var/log/nginx
-# deploy ALL=NOPASSWD: /bin/chown -R deploy\:root /var/log/nginx
-# deploy ALL=NOPASSWD: /bin/chmod 6775 /var/log/nginx
-# deploy ALL=NOPASSWD: /bin/chown deploy\:root /etc/nginx/sites-enabled
-#---------------------------------------------------------------

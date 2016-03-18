@@ -65,11 +65,11 @@ Vagrant.configure(2) do |config|
   config.vm.provision 'shell', inline: $script
   config.vm.provision :file do |f|
     f.source = './vagrant/monit_runit_sudoers_file'
-    f.destionation = '/etc/sudoers.d/monit_runit_app'
+    f.destination = '/etc/sudoers.d/monit_runit_app'
   end
   config.vm.provision :file do |f|
     f.source = './vagrant/monitrc'
-    f.destionation = '/etc/monit/monitrc'
+    f.destination = '/etc/monit/monitrc'
   end
   # config.ssh.username 'deploy'
   # config.ssh.password 'deploy'

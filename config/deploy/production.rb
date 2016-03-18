@@ -20,6 +20,8 @@ server '10.30.20.20', user: 'deploy', roles: %w{app db web}
 # Puma/nginx configuration
 set :server_names, 'localhost'
 
+# Bind to tcp port instead of sock file
+set :puma_socket_url, 'tcp://0.0.0.0:9000'
 
 # Configuration
 # =============

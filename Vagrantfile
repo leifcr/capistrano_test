@@ -11,7 +11,7 @@ echo Provisioning stuff
 date > /etc/vagrant_provisioned_at
 apt-add-repository -y ppa:brightbox/ruby-ng
 apt-get -y update
-apt-get -y install gpgv2 git runit monit g++ libreadline6-dev zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config libffi-dev libgmp-dev ruby2.3
+apt-get -y install gpgv2 git runit monit g++ libreadline6-dev zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config libffi-dev libgmp-dev ruby2.3 ruby2.3-dev
 rm -rf ~/.gnupg/
 useradd -d /home/deploy -G sudo -p $(openssl passwd -1 deploy) -s /bin/bash -m deploy
 mkdir -p /var/www

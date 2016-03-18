@@ -9,12 +9,12 @@
 $script = <<SCRIPT
 echo Provisioning stuff
 date > /etc/vagrant_provisioned_at
-apt-add-repositry -y ppa:brightbox/ruby-ng
+apt-add-repository -y ppa:brightbox/ruby-ng
 apt-get -y update
 apt-get -y install gpgv2 git runit monit g++ libreadline6-dev zlib1g-dev libssl-dev libyaml-dev libsqlite3-dev sqlite3 autoconf libgdbm-dev libncurses5-dev automake libtool bison pkg-config libffi-dev ruby2.3
 rm -rf ~/.gnupg/
 useradd -d /home/deploy -G sudo -p $(openssl passwd -1 deploy) -s /bin/bash -m deploy
-mkdir /var/www
+mkdir -p /var/www
 chown deploy:www-data /var/www
 mkdir -p /etc/monit/conf.d
 chown -R deploy:root /etc/monit/conf.d
@@ -22,7 +22,7 @@ chmod 6775 /etc/monit/conf.d
 chmod 0700 /etc/monit
 mkdir -p /var/run/monit
 chmod 0755 /var/run/monit
-mkdir /etc/service
+mkdir -p /etc/service
 chown -R deploy:root /etc/service
 chmod 6755 /etc/service
 mkdir -p /etc/sv/deploy
@@ -37,6 +37,20 @@ $nginx_script_lines = <<SCRIPT
 mkdir -p /var/log/nginx
 chmod 6775 -R /var/log/nginx
 chown -R deploy:root /var/log/nginx
+SCRIPT
+
+$beforefileuploadperms = <<SCRIPT
+chmod 0777 /etc/monit
+rm /etc/monit/monitrc
+touch /etc/sudoers.d/monit_runit_app
+echo 'deploy ALL=NOPASSWD: /usr/bin/monit *' >> /etc/sudoers.d/monit_runit_app
+echo 'deploy ALL=NOPASSWD: /usr/sbin/service monit *' >> /etc/sudoers.d/monit_runit_app
+echo 'deploy ALL=NOPASSWD: /usr/bin/sv *' >> /etc/sudoers.d/monit_runit_app
+echo 'deploy ALL=NOPASSWD: /usr/sbin/service nginx *' >> /etc/sudoers.d/monit_runit_app
+SCRIPT
+
+$afterfileuploadperms = <<SCRIPT
+chmod 0700 /etc/monit
 SCRIPT
 
 Vagrant.configure(2) do |config|
@@ -63,14 +77,12 @@ Vagrant.configure(2) do |config|
   config.vm.network 'private_network', ip: '10.30.20.20'
 
   config.vm.provision 'shell', inline: $script
-  config.vm.provision :file do |f|
-    f.source = './vagrant/monit_runit_sudoers_file'
-    f.destination = '/etc/sudoers.d/monit_runit_app'
-  end
+  config.vm.provision 'shell', inline: $beforefileuploadperms
   config.vm.provision :file do |f|
     f.source = './vagrant/monitrc'
     f.destination = '/etc/monit/monitrc'
   end
+  config.vm.provision 'shell', inline: $afterfileuploadperms
   # config.ssh.username 'deploy'
   # config.ssh.password 'deploy'
 
